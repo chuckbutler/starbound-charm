@@ -1,0 +1,8 @@
+#!/bin/bash
+
+set -ex
+
+
+start starbound
+
+open-port 21025

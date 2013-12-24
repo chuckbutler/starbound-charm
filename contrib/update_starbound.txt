@@ -1,0 +1,8 @@
+// update_starbound.txt
+//
+@ShutdownOnFailedCommand 1 //set to 0 if updating multiple servers at once
+@NoPromptForPassword 1
+login $STEAMNAME $STEAMPASS
+force_install_dir ../starbound
+app_update 211820 validate
+quit

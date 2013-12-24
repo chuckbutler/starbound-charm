@@ -1,0 +1,17 @@
+name: starbound
+summary: <Fill in summary here>
+maintainer: charles butler <charles.butler@nexus>
+description: |
+  <Multi-line description here>
+categories:
+  - misc
+subordinate: false
+provides:
+  provides-relation:
+    interface: interface-name
+requires:
+  requires-relation:
+    interface: interface-name
+peers:
+  peer-relation:
+    interface: interface-name

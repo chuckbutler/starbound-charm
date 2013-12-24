@@ -1,0 +1,41 @@
+#!/bin/bash
+
+set -ex
+
+set +e
+id discourse
+user_exists=$?
+set -e
+
+if [ $user_exists -gt 0 ]; then
+juju-log "Create starbound user"
+  adduser --disabled-password --gecos 'Starbound' starbound
+fi
+
+
+
+
+#Create our game server files
+if [ ! -d "/opt/steamcmd" ]; then
+	mkdir /opt/steamcmd
+fi
+
+if [ ! -d "/opt/starbound" ]; then
+	mkdir /opt/starbound
+fi
+
+apt-get install lib32gcc1 -y
+
+if [ ! -f /opt/steamcmd/steamcmd.tar.gz ]; then
+  cd /opt/steamcmd
+  wget http://media.steampowered.com/installer/steamcmd_linux.tar.gz -O steamcmd.tar.gz
+  tar xvfz /opt/steamcmd/steamcmd.tar.gz
+fi
+
+cp $CHARM_DIR/contrib/update_starbound.txt /opt/steamcmd/update_starbound.txt
+
+chown -R starbound:starbound /opt/starbound
+chown -R starbound:starbound /opt/steamcmd
+
+cp $CHARM_DIR/contrib/starbound.conf /etc/init/starbound.conf
+cp $CHARM_DIR/contrib/starbound-universe.conf /etc/init/starbound-universe.conf

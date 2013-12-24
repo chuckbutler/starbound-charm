@@ -1,0 +1,14 @@
+options:
+  steamuser:
+    type: string
+    default: ""
+    description: "Your Steam ID"
+  options:
+  steampassword:
+    type: string
+    default: ""
+    description: "Your Steam Password"
+  regenerate:
+    type: boolean
+    default: false
+    description: "Regenerate the universe on update"

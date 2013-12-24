@@ -1,0 +1,15 @@
+#!/bin/bash
+
+#updating the game, better backup the world
+juju-log "Backing up Starbound Universe"
+
+BACKUPDATE=`eval date +%Y%m%d`
+BACKUPTIME=`eval date +%H-%M`
+
+if [ -f "/mnt/universe-$BACKUPDATE-$BACKUPTIME.tar.gz" ]; then
+	juju-log "Skipping backup, found a prior candidate for the day"
+else
+	tar cvf /mnt/universe-$BACKUPDATE-$BACKUPTIME.tar /opt/starbound/linux64/universe
+	gzip /mnt/universe-$BACKUPDATE-$BACKUPTIME.tar
+fi
+

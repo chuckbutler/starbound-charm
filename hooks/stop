@@ -1,0 +1,7 @@
+#!/bin/bash
+
+set -ex
+
+stop starbound
+
+close-port 21025

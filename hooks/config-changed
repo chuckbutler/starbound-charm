@@ -1,0 +1,31 @@
+#!/bin/bash
+
+set -ex
+
+
+declare STEAMUSER=`config-get steamuser`
+declare STEAMPASS=`config-get steampassword`
+declare REGENERATION='config-get regenerate'
+
+
+if [ "$REGENERATION" == "True" ]; then
+   juju-log "Regeneration set to true, assuming no upgrade"
+   hooks/upgrade-charm
+   hooks/stop
+   rm -rf /opt/starbound/linux64/universe
+   hooks/start
+   exit
+fi
+
+
+juju-log "Creating the SteamCMD runscript template"
+
+cat <<EOF > /opt/steamcmd/update_starbound.txt
+  @NoPromptForPassword 1
+  login ${STEAMUSER} ${STEAMPASS}
+  force_install_dir ../starbound
+  app_update 211820 validate
+  quit
+EOF
+
+sudo -u starbound -H /opt/steamcmd/steamcmd.sh +runscript update_starbound.txt
